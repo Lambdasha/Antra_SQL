@@ -1,3 +1,6 @@
+USE AdventureWorks2019
+GO
+
 -- 1. There is 504 products
 SELECT COUNT(*)
 FROM Production.Product
@@ -76,34 +79,34 @@ USE Northwind
 GO
 
 -- 14.
-SELECT DISTINCT p.ProductName
+SELECT DISTINCT p.ProductID, p.ProductName
 FROM dbo.[Order Details] od JOIN dbo.Products p ON od.ProductID = p.ProductID
 JOIN dbo.Orders o ON o.OrderID = od.OrderID 
 WHERE o.OrderDate >= DATEADD(YEAR, -27, GETDATE())
 
 -- 15.
-SELECT TOP(5) o.ShipPostalCode
+SELECT TOP 5 o.ShipPostalCode
 FROM dbo.[Order Details] od JOIN dbo.Orders o ON o.OrderID = od.OrderID
 GROUP BY o.ShipPostalCode
 ORDER BY SUM(od.Quantity) DESC
 
 -- 16.
-SELECT TOP(5) o.ShipPostalCode
+SELECT TOP 5 o.ShipPostalCode
 FROM dbo.[Order Details] od JOIN dbo.Orders o ON o.OrderID = od.OrderID
 WHERE o.OrderDate >= DATEADD(YEAR, -27, GETDATE())
 GROUP BY o.ShipPostalCode
 ORDER BY SUM(od.Quantity) DESC
 
 -- 17.
-SELECT City, Count(CustomerID) AS NumberOfCustomers
+SELECT City, Count(*) AS NumberOfCustomers
 FROM dbo.Customers
 GROUP BY City
 
 -- 18.
-SELECT City, Count(CustomerID) AS NumberOfCustomers
+SELECT City, Count(*) AS NumberOfCustomers
 FROM dbo.Customers
 GROUP BY City
-HAVING Count(CustomerID) > 2
+HAVING Count(*) > 2
 
 -- 19.
 SELECT c.CompanyName, o.OrderDate
@@ -149,7 +152,6 @@ SELECT e2.EmployeeID, e2.FirstName + ' ' + e2.LastName AS Manager
 FROM dbo.Employees e1 JOIN dbo.Employees e2 ON e1.ReportsTO = e2.EmployeeID
 GROUP BY e2.FirstName + ' ' + e2.LastName, e2.EmployeeID
 HAVING Count(e1.EmployeeID) > 2
-
 
 -- 27.
 SELECT City, CompanyName AS Name, ContactName AS [Contact Name], 'Customer' AS Type
