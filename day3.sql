@@ -1,3 +1,6 @@
+USE Northwind
+GO
+
 -- 1. List all cities that have both Employees and Customers.
 SELECT DISTINCT c.City
 FROM dbo.Customers c JOIN dbo.Employees e ON c.City = e.City
